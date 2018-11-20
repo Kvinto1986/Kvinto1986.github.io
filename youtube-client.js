@@ -106,6 +106,33 @@ function reset() {
   mainContainerSmall.innerHTML = '';
 }
 
+function checkRes() {
+  if (document.body.clientWidth > 1200) {
+    mainContainerArr[0].style.display = 'flex';
+    mainContainerArr[1].style.display = 'none';
+    mainContainerArr[2].style.display = 'none';
+    listContainerArr[0].style.display = 'flex';
+    listContainerArr[1].style.display = 'none';
+    listContainerArr[2].style.display = 'none';
+  }
+  if (document.body.clientWidth < 1200 && document.body.clientWidth > 550) {
+    mainContainerArr[0].style.display = 'none';
+    mainContainerArr[1].style.display = 'flex';
+    mainContainerArr[2].style.display = 'none';
+    listContainerArr[0].style.display = 'none';
+    listContainerArr[1].style.display = 'flex';
+    listContainerArr[2].style.display = 'none';
+  }
+  if (document.body.clientWidth < 550) {
+    mainContainerArr[0].style.display = 'none';
+    mainContainerArr[1].style.display = 'none';
+    mainContainerArr[2].style.display = 'flex';
+    listContainerArr[0].style.display = 'none';
+    listContainerArr[1].style.display = 'none';
+    listContainerArr[2].style.display = 'flex';
+  }
+}
+
 function addNewVideoBlocks() {
   let tmp = 0;
   for (let i = 0; i < videoContainerArrBig.length; i += 1) {
@@ -150,31 +177,7 @@ function addVideoBlocks() {
       listContainerArrSmall[i].style.backgroundColor = 'gold';
     }
   }
-
-  if (document.body.clientWidth > 1200) {
-    mainContainerArr[0].style.display = 'flex';
-    mainContainerArr[1].style.display = 'none';
-    mainContainerArr[2].style.display = 'none';
-    listContainerArr[0].style.display = 'flex';
-    listContainerArr[1].style.display = 'none';
-    listContainerArr[2].style.display = 'none';
-  }
-  if (document.body.clientWidth < 1200 && document.body.clientWidth > 550) {
-    mainContainerArr[0].style.display = 'none';
-    mainContainerArr[1].style.display = 'flex';
-    mainContainerArr[2].style.display = 'none';
-    listContainerArr[0].style.display = 'none';
-    listContainerArr[1].style.display = 'flex';
-    listContainerArr[2].style.display = 'none';
-  }
-  if (document.body.clientWidth < 550) {
-    mainContainerArr[0].style.display = 'none';
-    mainContainerArr[1].style.display = 'none';
-    mainContainerArr[2].style.display = 'flex';
-    listContainerArr[0].style.display = 'none';
-    listContainerArr[1].style.display = 'none';
-    listContainerArr[2].style.display = 'flex';
-  }
+  checkRes();
 }
 
 function build() {
@@ -199,68 +202,37 @@ function build() {
       mainContainerSmall.appendChild(videoContainerSmall);
     }
 
+    const addElement = `${'<img class="video-container-img" '
+        + 'src="'}${allVideosArr[i].snippet.thumbnails.high.url}">`
+        + `<a class="video-container-link" href="https://www.youtube.com/watch?v=${allVideosArr[i].id.videoId}" `
+        + `target="_blank" >${allVideosArr[i].snippet.title}</a>`
+        + '<ul class="video-container-ul">'
+        + '<li class="video-container-ul-li">'
+        + `<i class="fas fa-user fa-2x" style="color: dodgerblue"></i>${allVideosArr[i].snippet.channelTitle}`
+        + '</li>'
+        + ''
+        + '<li class="video-container-ul-li">'
+        + `<i class="fas fa-calendar-alt fa-2x" style="color: green"></i>${allVideosArr[i].snippet.publishedAt.substr(0, 10)}`
+        + '</li>'
+        + '<li class="video-container-ul-li">'
+        + `<i class="fas fa-eye fa-2x" style="color: firebrick"></i>${statVideosArr[i].statistics.viewCount}`
+        + '</li>'
+        + '</ul>'
+        + `<p class="video-container-text">${allVideosArr[i].snippet.description}</p>`;
 
     const videoElementBig = document.createElement('div');
     videoElementBig.className = 'video-element-big';
-    videoElementBig.innerHTML = `${'<img class="video-container-img" '
-            + 'src="'}${allVideosArr[i].snippet.thumbnails.high.url}">`
-            + `<a class="video-container-link" href="https://www.youtube.com/watch?v=${allVideosArr[i].id.videoId}" `
-            + `target="_blank" >${allVideosArr[i].snippet.title}</a>`
-            + '<ul class="video-container-ul">'
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-user fa-2x" style="color: dodgerblue"></i>${allVideosArr[i].snippet.channelTitle}`
-            + '</li>'
-            + ''
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-calendar-alt fa-2x" style="color: green"></i>${allVideosArr[i].snippet.publishedAt.substr(0, 10)}`
-            + '</li>'
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-eye fa-2x" style="color: firebrick"></i>${statVideosArr[i].statistics.viewCount}`
-            + '</li>'
-            + '</ul>'
-            + `<p class="video-container-text">${allVideosArr[i].snippet.description}</p>`;
+    videoElementBig.innerHTML = addElement;
     videoElementsBig.appendChild(videoElementBig);
 
     const videoElementMid = document.createElement('div');
     videoElementMid.className = 'video-element-mid';
-    videoElementMid.innerHTML = `${'<img class="video-container-img" '
-            + 'src="'}${allVideosArr[i].snippet.thumbnails.high.url}">`
-            + `<a class="video-container-link" href="https://www.youtube.com/watch?v=${allVideosArr[i].id.videoId}" `
-            + `target="_blank" >${allVideosArr[i].snippet.title}</a>`
-            + '<ul class="video-container-ul">'
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-user fa-2x" style="color: dodgerblue"></i>${allVideosArr[i].snippet.channelTitle}`
-            + '</li>'
-            + ''
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-calendar-alt fa-2x" style="color: green"></i>${allVideosArr[i].snippet.publishedAt.substr(0, 10)}`
-            + '</li>'
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-eye fa-2x" style="color: firebrick"></i>${statVideosArr[i].statistics.viewCount}`
-            + '</li>'
-            + '</ul>'
-            + `<p class="video-container-text">${allVideosArr[i].snippet.description}</p>`;
+    videoElementMid.innerHTML = addElement;
     videoElementsMid.appendChild(videoElementMid);
 
     const videoElementSmall = document.createElement('div');
     videoElementSmall.className = 'video-element-small';
-    videoElementSmall.innerHTML = `${'<img class="video-container-img" '
-            + 'src="'}${allVideosArr[i].snippet.thumbnails.high.url}">`
-            + `<a class="video-container-link" href="https://www.youtube.com/watch?v=${allVideosArr[i].id.videoId}" `
-            + `target="_blank" >${allVideosArr[i].snippet.title}</a>`
-            + '<ul class="video-container-ul">'
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-user fa-2x" style="color: dodgerblue"></i>${allVideosArr[i].snippet.channelTitle}`
-            + '</li>'
-            + ''
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-calendar-alt fa-2x" style="color: green"></i>${allVideosArr[i].snippet.publishedAt.substr(0, 10)}`
-            + '</li>'
-            + '<li class="video-container-ul-li">'
-            + `<i class="fas fa-eye fa-2x" style="color: firebrick"></i>${statVideosArr[i].statistics.viewCount}`
-            + '</li>'
-            + '</ul>'
-            + `<p class="video-container-text">${allVideosArr[i].snippet.description}</p>`;
+    videoElementSmall.innerHTML = addElement;
     videoElementsSmall.appendChild(videoElementSmall);
   }
 }
@@ -686,29 +658,6 @@ window.addEventListener('touchend', (event) => {
 
 window.addEventListener('resize', () => {
   if (mainContainerBig.style.display === 'flex' || mainContainerMid.style.display === 'flex' || mainContainerSmall.style.display === 'flex') {
-    if (document.body.clientWidth > 1201) {
-      mainContainerBig.style.display = 'flex';
-      mainContainerMid.style.display = 'none';
-      mainContainerSmall.style.display = 'none';
-      listContainerArr[0].style.display = 'flex';
-      listContainerArr[1].style.display = 'none';
-      listContainerArr[2].style.display = 'none';
-    }
-    if (document.body.clientWidth < 1201 && document.body.clientWidth > 550) {
-      mainContainerBig.style.display = 'none';
-      mainContainerMid.style.display = 'flex';
-      mainContainerSmall.style.display = 'none';
-      listContainerArr[0].style.display = 'none';
-      listContainerArr[1].style.display = 'flex';
-      listContainerArr[2].style.display = 'none';
-    }
-    if (document.body.clientWidth < 551) {
-      mainContainerBig.style.display = 'none';
-      mainContainerMid.style.display = 'none';
-      mainContainerSmall.style.display = 'flex';
-      listContainerArr[0].style.display = 'none';
-      listContainerArr[1].style.display = 'none';
-      listContainerArr[2].style.display = 'flex';
-    }
+    checkRes();
   }
 });
